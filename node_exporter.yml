@@ -1,0 +1,21 @@
+kernel:
+  image: "linuxkit/kernel:4.9.x"
+  cmdline: "console=ttyS0 page_poison=1"
+init:
+  - linuxkit/init:2599bcd5013ce5962aa155ee8929c26160de13bd
+  - linuxkit/runc:3a4e6cbf15470f62501b019b55e1caac5ee7689f
+  - linuxkit/containerd:b50181bc6e0084e5fcd6b6ad3cf433c4f66cae5a
+services:
+  - name: getty
+    image: "linuxkit/getty:ef9d667af71089326419fb08e9cc9d567cf15748"
+    env:
+     - INSECURE=true
+  - name: rngd
+    image: "linuxkit/rngd:1fa4de44c961bb5075647181891a3e7e7ba51c31"
+  - name: dhcpcd
+    image: "linuxkit/dhcpcd:7d2b8aaaf20c24ad7d11a5ea2ea5b4a80dc966f1"
+  - name: node_exporter
+    image: "linuxkit/node_exporter:265b35e1c9bd659fff22b0345fc7c8735c787b3c"
+trust:
+  org:
+    - linuxkit
